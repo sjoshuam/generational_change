@@ -1,6 +1,7 @@
 ##########==========##########==========##########==========##########==========
 
 ## github.com/sjoshuam/life_expectancy
+Repo creation date: 2023-10-07
 
 #### Overview
 
@@ -56,7 +57,7 @@ two scripts:
 
 For more information on life expectancy, see the CDC's publications on the subject:
 
-[US Life Tables, 2020](https://www.cdc.gov/nchs/data/nvsr/nvsr71/nvsr71-01.pdf)
-[US State Life Tables, 2020](https://www.cdc.gov/nchs/data/nvsr/nvsr71/nvsr71-02.pdf)
++ [US Life Tables, 2020](https://www.cdc.gov/nchs/data/nvsr/nvsr71/nvsr71-01.pdf)
++ [US State Life Tables, 2020](https://www.cdc.gov/nchs/data/nvsr/nvsr71/nvsr71-02.pdf)
 
 ##########==========##########==========##########==========##########==========
