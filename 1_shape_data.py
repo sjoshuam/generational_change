@@ -76,6 +76,13 @@ def calculate_survival_pct(birth_yr, le = life_expect, params = params):
     le['M'] = (1 - le['M']).cumprod()
     le['F'] = (1 - le['F']).cumprod()
     le['Birthyear'] = birth_yr
+    le = pd.melt(
+        frame = le.drop(columns = 'Age'),
+        id_vars = ['Birthyear', 'Yr'],
+        value_vars = ['M', 'F'],
+        var_name = 'Sex',
+        value_name = 'Alive'
+    ).set_index(['Sex', 'Birthyear'])
     return le
 
 
@@ -86,7 +93,7 @@ def calculate_survival_for_all(params = params):
     survival_pct = list()
     for iter_birth in params['birth_years']:
         survival_pct.append(calculate_survival_pct(iter_birth))
-    survival_pct = pd.concat(survival_pct, axis = 0).reset_index(drop = True)
+    survival_pct = pd.concat(survival_pct, axis = 0)
     return survival_pct
 
 
@@ -102,7 +109,6 @@ if __name__ == '__main__':
     survival_pct = calculate_survival_for_all()
 
     ## save results
-    survival_pct.to_excel('io/survival_pct.xlsx', index = False)
-
+    survival_pct.to_excel('io/survival_pct.xlsx')
 
 ##########==========##########==========##########==========##########==========
