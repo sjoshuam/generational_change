@@ -6,10 +6,7 @@
 ## INITIALIZE ENVIRONMENT
 
 ## libraries
-import numpy as np
 import pandas as pd
-import plotly.graph_objects as go
-
 
 ## parameters
 """
@@ -26,15 +23,25 @@ params = {
 }
 
 ##########==========##########==========##########==========##########==========
-## IMPORT DATA
-#### --> EXECUTE IMMEDIATELY SO DATASET CAN BE USED AS AN ARGUMENT DEFAULT
+## DEFINE FUNCTIONS
+
+
+def autofill_params(params = params):
+    """
+        Automatically fills in some useful parameters, like the
+        current year and years to be used for displaying life
+        chances.
+    """
+    params['current_yr'] = pd.Timestamp.now().year    
+    params['birth_years'] = list(
+        range(params['current_yr'] - 80, params['current_yr'] + 1, 20))
+
 
 def import_data(params = params):
     """
         Function reads, compiles and reshapes life table data into a simple
         three column dataset.
     """
-
     life_expect = dict()
     for i in params['data'].keys():
         life_expect[i] = pd.read_excel(
@@ -48,24 +55,8 @@ def import_data(params = params):
     life_expect = life_expect.astype({'Age':int})
     return life_expect
 
-## execute import early 
-life_expect = import_data()
 
-##########==========##########==========##########==========##########==========
-## DEFINE FUNCTIONS
-
-
-def autofill_params(params = params):
-    """
-        Automatically fills in some useful parameters
-    """
-    ## determine the birth years to be displayed in the life chance tables
-    params['current_yr'] = pd.Timestamp.now().year    
-    params['birth_years'] = list(
-        range(params['current_yr'] - 80, params['current_yr'] + 1, 20))
-
-
-def calculate_survival_pct(birth_yr, le = life_expect, params = params):
+def calculate_survival_pct(birth_yr, le, params = params):
     """
         Calculate the survival percentages from the present year for a given
         birth year
@@ -86,13 +77,13 @@ def calculate_survival_pct(birth_yr, le = life_expect, params = params):
     return le
 
 
-def calculate_survival_for_all(params = params):
+def calculate_survival_for_all(le, params = params):
     """
         Iterate calculate_survival() for all birth years in params
     """
     survival_pct = list()
     for iter_birth in params['birth_years']:
-        survival_pct.append(calculate_survival_pct(iter_birth))
+        survival_pct.append(calculate_survival_pct(iter_birth, le))
     survival_pct = pd.concat(survival_pct, axis = 0)
     return survival_pct
 
@@ -105,8 +96,11 @@ if __name__ == '__main__':
     ## automatically fill in some parameters
     autofill_params()
 
+    ## import data
+    life_expect = import_data()
+
     ## calculate survival chances
-    survival_pct = calculate_survival_for_all()
+    survival_pct = calculate_survival_for_all(life_expect)
 
     ## save results
     survival_pct.to_excel('io/survival_pct.xlsx')

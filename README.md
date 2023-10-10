@@ -28,20 +28,6 @@ two scripts:
 - 1_shape_data.py - uses the CDC's life tables to generate historgram coordinates
 - 2_visualize.py  - generates a poster visualization
 
-#### Poster Layout
-
-|       |      |       |       |
-|:-     |:-    |:-     |:-     |
-|(a)    |(b)   |40F    |40M    |
-|00F    |00M   |50F    |50M    |
-|10F    |10M   |60F    |60M    |
-|20F    |20M   |70F    |70M    |
-|30F    |30M   |80F    |80M    |
-
-- (a) Project summary text
-- (b) Long and fulfilling life, tips and links
-- Other cells - year x mortality chance area plot
-
 #### TODO
 
 - [ ] 1_shape_data.py
