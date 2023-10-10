@@ -45,13 +45,19 @@ two scripts:
 #### TODO
 
 - [ ] 1_shape_data.py
-    - [X] Download data
-    - [ ] Outline work (add checkboxes)
+    - [X] Download data (Aww... it's such an adorably tiny dataset!)
+    - [X] import_data
+    - [X] calculate_survival_for_all
+        - [ ] Parallelize (not really needed, but good practice anyway)
 - [ ] 1_shape_data.py
     - [X] Download data
-    - [ ] Outline work (add checkboxes)
-    - [ ] Draw cell A text
-    - [ ] Draw cell B text
+    - [ ] draw_background (use go.make_subplots(rows, cols))
+    - [ ] draw_life_chances
+    - [ ] draw_note_lines
+    - [ ] draft explainer text
+    - [ ] draft optimistic "What you can do"  living longer/better text
+        - [ ] Research evidence-based longer life tips
+        - [ ] Research evidence-based better life tips
 
 #### Source
 
