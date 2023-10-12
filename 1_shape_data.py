@@ -34,7 +34,7 @@ def autofill_params(params = params):
     """
     params['current_yr'] = pd.Timestamp.now().year    
     params['birth_years'] = list(
-        range(params['current_yr'] - 80, params['current_yr'] + 1, 20))
+        range(params['current_yr'] - 60, params['current_yr'] + 1, 20))
 
 
 def import_data(params = params):
@@ -68,8 +68,8 @@ def calculate_survival_pct(birth_yr, le, params = params):
     le['F'] = (1 - le['F']).cumprod()
     le['Birthyear'] = birth_yr
     le = pd.melt(
-        frame = le.drop(columns = 'Age'),
-        id_vars = ['Birthyear', 'Yr'],
+        frame = le.drop(columns = 'Yr'),
+        id_vars = ['Birthyear', 'Age'],
         value_vars = ['M', 'F'],
         var_name = 'Sex',
         value_name = 'Alive'
