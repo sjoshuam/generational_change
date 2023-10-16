@@ -35,15 +35,18 @@ two scripts:
     - [X] import_data
     - [X] calculate_survival_for_all
         - [ ] Parallelize (not really needed, but good practice anyway)
-- [ ] 1_shape_data.py
+    - [ ] Fill in doc string text
+
+- [ ] 2_visualize.py
     - [X] Download data
-    - [ ] draw_background (use go.make_subplots(rows, cols))
-    - [ ] draw_life_chances
-    - [ ] draw_note_lines
+    - [X] draw_background (use go.make_subplots(rows, cols))
+    - [X] draw_life_chances
+    - [X] add_text
     - [ ] draft explainer text
     - [ ] draft optimistic "What you can do"  living longer/better text
         - [ ] Research evidence-based longer life tips
         - [ ] Research evidence-based better life tips
+    - [ ] Fill in doc string text
 
 #### Source
 

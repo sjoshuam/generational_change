@@ -29,8 +29,13 @@ def import_data():
     """
         X
     """
-    x = pd.read_excel(io = 'io/survival_pct.xlsx', index_col = [0, 1])
-    return x.sort_index()
+    ## 
+    xlsx = pd.read_excel(io = 'io/survival_pct.xlsx', index_col = [0, 1])
+    with open('in/text.txt', 'rt') as conn:
+        txt = ''.join(conn.readlines()).replace('\n', '<br>')
+    txt = [i.strip() for i in txt.split('<block><br>') if len(i) > 0]
+    
+    return xlsx.sort_index(), txt
 
 
 def draw_background():
@@ -39,8 +44,8 @@ def draw_background():
     """
     global fig
     fig = make_subplots(
-        rows = 5, row_heights   = [2, 1.5, 1.5, 1.5, 1.5],
-        cols = 5, column_widths = [0.34, 0.33, 5.5, 0.33, 5.5],
+        rows = 6, row_heights   = [2.2, 0.2, 1.4, 1.4, 1.4, 1.4],
+        cols = 4, column_widths = [0.2, 5.8, 0.2, 5.8],
     )
     fig.update_layout(
         template = 'plotly_dark',
@@ -58,42 +63,47 @@ def draw_life_chances(idx, rc, sc):
     x = sc.loc[idx]['Age'].values
     y = sc.loc[idx]['Alive'].values
 
-    x = np.append(x, x[::-1])
-    y = np.append(y, y * 0)
+    xx = np.append(x, x[::-1])
+    yy = np.append(y, y * 0)
 
     ## draw life chances polygon
     fig.add_trace(
         row = rc[0], col = rc[1],
         trace = go.Scatter(
-            x = x, y = y, fill = 'toself',
-            showlegend = False
+            x = xx, y = yy, fill = 'toself',
+            showlegend = False, 
+            line_color = 'hsv(150, 50, 70)',
+            name = ''
+        )
+    )
+    fig.add_trace(
+        row = rc[0], col = rc[1],
+        trace = go.Scatter(
+            x = x, y = y,
+            showlegend = False, 
+            line_color = 'hsv(150, 50, 70)',
+            name = 'Still Alive'
         )
     )
     fig.update_xaxes(row = rc[0], col = rc[1], range = [0, 100])
-
-    ## return the 17th-83th percentile life expectancies
-    return (
-        x[y == min(y[y > 5/6])][0], 
-        x[y == min(y[y > 1/6])][0]
-        )
+    fig.update_layout(hovermode = 'x')
 
 
-def add_text(text, rc):
+def add_text(text, rc, deg = 0):
     fig.add_annotation(
         row = rc[0], col = rc[1],
         arg = dict(
-            x = 0.5, y = 0.5, text = text, textangle = 270, showarrow = False,
+            x = 0.5, y = 0.5, text = text, textangle = deg, showarrow = False,
             font = dict(size = 12)
             )
         )
     fig.update_xaxes(row = rc[0], col = rc[1], visible = False, range = [0,1])
     fig.update_yaxes(row = rc[0], col = rc[1], visible = False, range = [0,1])
 
-def draw_note_lines():
-    pass
 
 ##########==========##########==========##########==========##########==========
 ## DEFINE COMPOSITE DRAWING FUNCTIONS
+
 
 def draw_life_chance_series(sex, col, survival_pct):
     birthyear = sorted(
@@ -101,24 +111,17 @@ def draw_life_chance_series(sex, col, survival_pct):
     
     ## iterate through birth years
     for iter_birthyear in birthyear:
-        idx = birthyear.index(iter_birthyear) + 2
+        idx = birthyear.index(iter_birthyear) + 3
 
         ## draw life chance charts
-        life_pct = draw_life_chances(
-            (sex, iter_birthyear), (idx, col), survival_pct)
+        draw_life_chances((sex, iter_birthyear), (idx, col), survival_pct)
 
         ## draw life chance labels
-        the_text = '<br><br>'.join([
-            '<b>Final Age: {1}-{2}</b>'
-        ])
+        the_text = '<br>'.join(['<b>Age Now:<br>{0}yrs</b>'])
         the_text = the_text.format(
-            pd.Timestamp.now().year - iter_birthyear,
-            min(life_pct),
-            max(life_pct)
+            pd.Timestamp.now().year - iter_birthyear
             )
-        add_text(the_text, (idx, col - 1))
-
-
+        add_text(the_text, (idx, col - 1), deg = 270)
 
 
 ##########==========##########==========##########==========##########==========
@@ -127,16 +130,25 @@ def draw_life_chance_series(sex, col, survival_pct):
 if __name__ == '__main__':
 
     ## import data
-    survival_pct = import_data()
+    survival_pct, text_blocks = import_data()
+    print(text_blocks)
 
     ## draw background figure
     draw_background()
 
     ## draw life chances plots
-    draw_life_chance_series('M', 3, survival_pct)
-    draw_life_chance_series('F', 5, survival_pct)
+    add_text(text = '<b>Gender: Male</b>', rc = (2, 2))
+    draw_life_chance_series('M', 2, survival_pct)
+    add_text(text = '<b>Gender: Female</b>', rc = (2, 4))
+    draw_life_chance_series('F', 4, survival_pct)
+
+    ## add text panels
+    add_text(text = text_blocks[0], rc = (1,2))
+    add_text(text = text_blocks[1], rc = (1,4))
 
     ## write figure to disk
-    fig.write_html('out/test.html')
+    fig.write_html(
+        'out/life_expectancy.html', default_width = 1200, default_height = 800)
+    fig.write_image('out/life_expectancy.png', width = 1200, height = 800)
 
 ##########==========##########==========##########==========##########==========
