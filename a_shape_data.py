@@ -34,7 +34,7 @@ def autofill_params(params = params):
     """
     params['current_yr'] = pd.Timestamp.now().year    
     params['birth_years'] = list(
-        range(params['current_yr'] - 60, params['current_yr'] + 1, 20))
+        range(params['current_yr'] - 90, params['current_yr'] + 1, 1))
 
 
 def import_data(params = params):

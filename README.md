@@ -48,6 +48,8 @@ two scripts:
         - [ ] Research evidence-based better life tips
     - [ ] Fill in doc string text
 
+- [ ] Add new portfolio project deployment script to handle new format
+
 #### Source
 
 For more information on life expectancy, see the CDC's publications on the subject:
