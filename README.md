@@ -1,60 +1,73 @@
-##########==========##########==========##########==========##########==========
+##########==========##########==========##########==========##########==========##########==========
 
-## github.com/sjoshuam/life_expectancy
+## github.com/sjoshuam/generational_change
 Repo creation date: 2023-10-07
+Rescoped: 2023-11-04
 
 #### Overview
 
-Life expectancy is a commonly used health statistic.  It estimates how long a
-person born today might live, assuming their their chances of dying match current
-mortality statistics for every year of life. For example, imagine that 80% of 88
-year-olds lived to see their 89th birthday, and 70% of 89 year-olds lived to see
-their 90th birthday.  Using the life expectancy approach approach, we'd estimate
-that that a given person, age 88, would have a 80% x 70% = 56% chance of living
-to see their 90th birthday.
+This project projects how the balance of economic and political power amoung
+different generations of Americans may shift over the coming decades, based
+on life expectancy.  The end product will be a 2 row x 3 column html data
+display.
 
-Life expectancy is typically expressed as the number of years that someone born
-today might live. As of October 2023, the figure stands at 73.5 years for men,
-and 79.3 years for women. However, the statistic is actually the oldest age at
-which the newborn would have a 50% orbetter chance of being alive, if their
-chances of mortality in each year match today's mortality rates.
+|       |Col. A |Col. B |Col. C |
+|:-     |:-     |:-     |:-     |
+|Row 1  |A1     |B1     |C1     |
+|Row 2  |A2     |B2     |C2     |
 
-This project uses the data underlying life expectancy to provide a little more
-detail than that top-line figure.  It will generate a series of probability
-density plots that reveal the most likely death year for people who are currently
-of a specific year and gender.  The project code pipeline currently consists of
-two scripts:
+Cells:
 
-- 1_shape_data.py - uses the CDC's life tables to generate historgram coordinates
-- 2_visualize.py  - generates a poster visualization
+- Figure Cells
+  - A1 - Life expectancy figure with birthyear slider
+  - B1 – Population projection figure with birth vs immigration rate slider
+  - C1 – Wealth projection figure with wealth rate slider
+  - C2 – Voting projection figure with age vs cohort slider
+- Text Cells
+- A2 – Project explainer text
+- B2 – Figure explainer texts
 
 #### TODO
 
-- [ ] 1_shape_data.py
-    - [X] Download data (Aww... it's such an adorably tiny dataset!)
-    - [X] import_data
-    - [X] calculate_survival_for_all
-        - [ ] Parallelize (not really needed, but good practice anyway)
-    - [ ] Fill in doc string text
-
-- [ ] 2_visualize.py
-    - [X] Download data
-    - [X] draw_background (use go.make_subplots(rows, cols))
-    - [X] draw_life_chances
-    - [X] add_text
-    - [ ] draft explainer text
-    - [ ] draft optimistic "What you can do"  living longer/better text
-        - [ ] Research evidence-based longer life tips
-        - [ ] Research evidence-based better life tips
-    - [ ] Fill in doc string text
-
-- [ ] Add new portfolio project deployment script to handle new format
+- [ ] A1 Life Expectancy Figure with Birthyear Slider 
+  - [ ] a1_make_life_chances.py
+  - [ ] a1_draw_life_chances.py
+- [ ] B1 Population Projection Figure with Migration Rate Slide
+  - [ ] b1_make_people_forecast.py
+  - [ ] b1_draw_people_forecast.py
+- [ ] C1 Wealth Projection Figure with Wealth Rate Slider
+  - [ ] c1_make_wealth_forecast.py
+  - [ ] c1_draw_wealth_forecast.py
+- [ ] C2 Voting Projection Figure with Age/Cohort Slider
+  - [ ] c2_make_voting_forecast.py
+  - [ ] c2_draw_voting_forecast.py
+- [ ] A2/B2 Explainer Text
+  - [ ] a2_draw_text.py
+  - [ ] a2_project_text.docx
+  - [ ] b2_figure_text.docx
+- [ ] Execute the Project
+  - [ ] 0_execute_project.py
+    - [ ] execute_project()
+    - [ ] deploy_project()
 
 #### Source
 
-For more information on life expectancy, see the CDC's publications on the subject:
+###### A1 Life Expectancy
 
-+ [US Life Tables, 2020](https://www.cdc.gov/nchs/data/nvsr/nvsr71/nvsr71-01.pdf)
-+ [US State Life Tables, 2020](https://www.cdc.gov/nchs/data/nvsr/nvsr71/nvsr71-02.pdf)
+[US CDC: Life Tables (2020)](https://www.cdc.gov/nchs/data/nvsr/nvsr71/nvsr71-01.pdf)
 
-##########==========##########==========##########==========##########==========
+###### B1 Population Forecast
+
+[US Census: Projected Population](https://www.census.gov/data/tables/2017/demo/popproj/2017-summary-tables.html)
+
+[US CIS: Age at Naturalization (PR + 3-5)](https://www.uscis.gov/citizenship-resource-center/naturalization-statistics)
+
+###### C1 Wealth Projection
+
+[US FRB: Age x Net Worth Table (2023)](https://www.federalreserve.gov/publications/files/scf23.pdf)
+
+###### C2 Voting Projection
+
+[ANES: Age x Party Table (2020)](https://sda.berkeley.edu/sdaweb/analysis/exec?formid=tbf&sdaprog=tables&dataset=nes2020full&sec508=false&row=V201507x&column=V201200&weightlist=V200010b&rowpct=on&design=complex&cflevel=95&weightedn=on&color=on&ch_type=stackedbar&ch_color=yes&ch_width=600&ch_height=400&ch_orientation=vertical&ch_effects=use2D&decpcts=1&decse=1&decdeft=3&decwn=1&decstats=2&csvformat=no&csvfilename=tables.csv)
+
+##########==========##########==========##########==========##########==========##########==========
