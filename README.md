@@ -31,7 +31,7 @@ Cells:
 
 - [ ] A1 Life Expectancy Figure with Birthyear Slider 
   - [X] a1_make_life_chances.py
-  - [ ] a1_draw_life_chances.py
+  - [ ] a1_draw_life_chances.py (TODO: Add slider)
 - [ ] B1 Population Projection Figure with Migration Rate Slide
   - [ ] b1_make_people_forecast.py
   - [ ] b1_draw_people_forecast.py
@@ -47,7 +47,7 @@ Cells:
   - [ ] b2_figure_text.docx
 - [ ] Execute the Project
   - [ ] 0_execute_project.py
-    - [ ] Figure intitiator/writer code
+    - [X] Figure intitiator/writer code
     - [ ] Module executors
 
 #### Source

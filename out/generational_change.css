@@ -1,8 +1,8 @@
 /* ==== VARIABLES ================ */
 
 :root{
-  --light: #F2F9FF;
-  --dark: #143D66;
+  --light: #FFF9F2;
+  --dark: #663D14;
 
 }
 
@@ -40,9 +40,11 @@ div.header{
 
 div.link_button{
   height: 2%;
-  color: #808040;
+  /*color: #808040;*/
+  color: var(--dark);
   text-align: center;
-  border: 1px solid #808040;;
+  /*border: 1px solid #808040;*/
+  border: 1px solid var(--dark);
   font-weight: bold;
   border-radius: 5px;
   background-color: var(--light);
