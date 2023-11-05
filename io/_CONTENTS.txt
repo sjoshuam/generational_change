@@ -1,0 +1,1 @@
+This directory is both read from and written to. It holds outputs that will be read back in as inputs for downstream code.

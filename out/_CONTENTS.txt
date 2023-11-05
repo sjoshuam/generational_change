@@ -1,0 +1,1 @@
+This directory should be write-only. It the project's final outputs
