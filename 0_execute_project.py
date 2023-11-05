@@ -82,7 +82,7 @@ def execute_project():
     ## generate container for div elements
     div_list = list()
     div_list = [
-        '<a href="index.html"> <div class="link_button">Return To Portfolio</div> </a>',
+        '<a href="../index.html"> <div class="link_button">Return To Portfolio</div> </a>',
         '<div class="header"></div>', '<div class="header"></div>']
 
     ## draw life expectancy figure
