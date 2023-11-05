@@ -28,7 +28,7 @@ def initialize_figure(params = params):
     """
         Initialize basic plotly object (global)
     """
-    fig = make_subplots(rows = 3, row_heights = [0.2,3.9,3.9], cols = 3, column_widths = [4,4,4])
+    fig = go.Figure()
     fig = fig.update_layout(
         plot_bgcolor  = params['light'], paper_bgcolor = params['light'],
         font = dict(size = 12, color = params['dark']),
@@ -38,6 +38,7 @@ def initialize_figure(params = params):
     return fig
 
 
+'''
 def write_figure(fig, name = 'generational_change'):
     """
         Write figure to disk
@@ -48,6 +49,28 @@ def write_figure(fig, name = 'generational_change'):
     fig.write_image(in_file.replace('.html', '.png'), width = 1200, height = 800)
     shutil.copyfile(in_file, out_file)
     shutil.copyfile(in_file.replace('.html', '.png'), out_file.replace('.html', '.png'))
+'''
+
+
+def write_html(div_list):
+    """
+        Assembles <div> sections into a single html file
+    """
+    header = '\n'.join([
+        '<html>', '<header>',
+        '\t<meta charset="utf-8" />',
+        '\t<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>', 
+        '\t<link rel="stylesheet" href="generational_change.css">',
+        '</header>',
+        '<body>'])
+    footer = '\n'.join(['</body>', '</html>'])
+    div_list = '\n'.join(div_list)
+    html_file = '\n'.join([header, div_list, footer])
+    open('out/generational_change.html', 'wt').write(html_file)
+    shutil.copy('out/generational_change.html', '../portfolio/p/generational_change.html')
+    shutil.copy('out/generational_change.css', '../portfolio/p/generational_change.css')
+    #shutil.copy('out/generational_change.png', '../portfolio/p/generational_change.png')
+    return html_file
 
 
 ##########==========##########==========##########==========##########==========##########==========
@@ -56,17 +79,25 @@ def write_figure(fig, name = 'generational_change'):
 
 def execute_project():
 
-    ## generate figure
-    fig = initialize_figure()
+    ## generate container for div elements
+    div_list = list()
+    div_list = [
+        '<a href="index.html"> <div class="link_button">Return To Portfolio</div> </a>',
+        '<div class="header"></div>', '<div class="header"></div>']
 
     ## draw life expectancy figure
     life_chances = a1_make_life_chances.make_life_chances()
-    life_chances_drawn = a1_draw_life_chances.draw_life_chances(fig, life_chances)
-    for iter in life_chances_drawn.keys():
-        fig.add_trace(row = 2, col = 1, trace = life_chances_drawn[iter])
 
-    ## write figure to disk and propagate to portfolio
-    write_figure(fig)
+    ## draw placeholders for forthcoming figures
+    for iter in range(0, 3):
+        div_list.append(a1_draw_life_chances.draw_life_chances(life_chances))
+    div_list += ['<div class="txt"><p>EXPLAINER TEXT<br>Lorem Ipsom dolor sit amet.</p></div>'] * 2
+    div_list.append(a1_draw_life_chances.draw_life_chances(life_chances))
+
+    ## write html
+    write_html(div_list)
+
+
 
 
 ##########==========##########==========##########==========##########==========##########==========
