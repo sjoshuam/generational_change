@@ -107,8 +107,12 @@ def draw_life_chances(life_chances, params = params):
     fig = set_up_figure(life_chances)
     trace_list = iterate_all_life_chances(life_chances)
     fig = fig.add_traces([trace_list[i] for i in trace_list.keys()])
-    fig = fig.update_layout(sliders = draw_slider_bar(trace_list, life_chances))
-    div = fig.write_html(file = 'out/life_chances.div',full_html = False, include_plotlyjs = False)
+    fig = fig.update_layout(
+        sliders = draw_slider_bar(trace_list, life_chances),
+        title = dict(text = '•' + ' ' * 10 + 'Survival Chances, Given Birth Year', xanchor = 'auto'),
+        )
+    fig.write_html(file = 'out/life_chances.html',full_html = True, include_plotlyjs = True)
+    fig.write_html(file = 'out/life_chances.div',full_html = False, include_plotlyjs = False)
     div = open('out/life_chances.div', 'rt').read()
     return div
 

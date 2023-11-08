@@ -7,7 +7,7 @@
 
 ## import libraries
 import shutil
-import a1_make_life_chances, a1_draw_life_chances
+import a1_make_life_chances, a1_draw_life_chances, a2_do_project_text
 from plotly.subplots import make_subplots
 import plotly.graph_objects as go
 
@@ -62,7 +62,14 @@ def execute_project():
     ## draw placeholders for forthcoming figures
     for iter in range(0, 3):
         div_list.append(a1_draw_life_chances.draw_life_chances(life_chances))
-    div_list += ['<div class="txt"><p>EXPLAINER TEXT<br>Lorem Ipsom dolor sit amet.</p></div>'] * 2
+
+    ## draw project text
+    project_text = a2_do_project_text.make_project_text()
+    for iter_key in project_text.keys():
+        div_list.append(a2_do_project_text.draw_project_text((0.5, 0.5), project_text[iter_key]))
+
+    
+
     div_list.append(a1_draw_life_chances.draw_life_chances(life_chances))
 
     ## write html
