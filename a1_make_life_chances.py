@@ -12,7 +12,7 @@ import pandas as pd
 params = {
     'current_year': pd.Timestamp.now().year,
     'birth_years': [pd.Timestamp.now().year - i for i in range(90, -1, -1)],
-    'data': {'M':'in/Table02_Male.xlsx', 'F':'in/Table03_Female.xlsx'},
+    'data': {'M':'in/a1_Table02_Male.xlsx', 'F':'in/a1_Table03_Female.xlsx'},
     'cpu_count': min(max(int(multiprocessing.cpu_count() *0.8), multiprocessing.cpu_count() -1), 8)
 }
 
@@ -103,7 +103,7 @@ def make_life_chances(params = params):
     parallel_output = [pd.concat(i.get(), axis = 0) for i in parallel_output]
     pool.close()
     life_chances = pd.concat(parallel_output, axis = 0).sort_index().round({'Alive':3})
-    life_chances.to_excel('io/life_chances.xlsx')
+    life_chances.to_excel('io/a1_life_chances.xlsx')
     return life_chances
 
 

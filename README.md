@@ -29,9 +29,9 @@ Cells:
 
 #### TODO
 
-- [ ] A1 Life Expectancy Figure with Birthyear Slider 
+- [X] A1 Life Expectancy Figure with Birthyear Slider 
   - [X] a1_make_life_chances.py
-  - [ ] a1_draw_life_chances.py (TODO: Add slider)
+  - [X] a1_draw_life_chances.py
 - [ ] B1 Population Projection Figure with Migration Rate Slide
   - [ ] b1_make_people_forecast.py
   - [ ] b1_draw_people_forecast.py
@@ -42,9 +42,8 @@ Cells:
   - [ ] c2_make_voting_forecast.py
   - [ ] c2_draw_voting_forecast.py
 - [ ] A2/B2 Explainer Text
-  - [ ] a2_draw_text.py
-  - [ ] a2_project_text.docx
-  - [ ] b2_figure_text.docx
+  - [X] a2_do_project_text.py
+  - [ ] project_text.txt
 - [ ] Execute the Project
   - [ ] 0_execute_project.py
     - [X] Figure intitiator/writer code
@@ -60,7 +59,7 @@ Cells:
 
 [US Census: Projected Population](https://www.census.gov/data/tables/2017/demo/popproj/2017-summary-tables.html)
 
-[US CIS: Age at Naturalization (PR + 3-5)](https://www.uscis.gov/citizenship-resource-center/naturalization-statistics)
+[US Census: Immigration x Age Rates](https://www2.census.gov/programs-surveys/popproj/technical-documentation/methodology/methodstatement17.pdf)
 
 ###### C1 Wealth Projection
 

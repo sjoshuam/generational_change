@@ -17,7 +17,7 @@ params = {
 ##########==========##########==========##########==========##########==========##########==========
 ## TOP-LEVEL FUNCTION
 
-def make_project_text(loc = 'in/project_text.txt'):
+def make_project_text(loc = 'in/a2_project_text.txt'):
     txt = open(loc, 'rt').read()
     txt = txt.split('<x>\n\n</x>')
     txt = {i.split('</b>')[0].strip('<b>'):i for i in txt}
@@ -34,9 +34,9 @@ def draw_project_text(xy, txt):
         xaxis = dict(visible = False, range = (0, 1))
         )
     fig = fig.add_trace(go.Scatter(x = [xy[0]], y = [xy[1]], text = txt, mode = 'text'))
-    fig.write_html(file = 'out/project_text.html',full_html = True, include_plotlyjs = True)
-    fig.write_html(file = 'out/project_text.div',full_html = False, include_plotlyjs = False)
-    div = open('out/project_text.div', 'rt').read()
+    fig.write_html(file = 'out/a2_project_text.html',full_html = True, include_plotlyjs = True)
+    fig.write_html(file = 'out/a2_project_text.div',full_html = False, include_plotlyjs = False)
+    div = open('out/a2_project_text.div', 'rt').read()
     return div
 
 ##########==========##########==========##########==========##########==========##########==========
