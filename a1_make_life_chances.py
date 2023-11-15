@@ -83,7 +83,7 @@ def split_up_birth_years(params = params):
 ## TOP-LEVEL FUNCTION
 
 
-def make(params = params):
+def make_a1(params = params):
     """
         Executes refine_life_chances() in  
     """
@@ -112,7 +112,7 @@ def make(params = params):
 
 
 if __name__ == '__main__':
-    life_chances = make()
+    life_chances = make_a1()
 
 
 ##########==========##########==========##########==========##########==========##########==========

@@ -76,7 +76,7 @@ def execute_or_load_cache(function):
     else:
         outputs = function()
         pickle.dump(outputs, open(file_name, 'wb'))
-        return outputs
+    return outputs
 
 
 

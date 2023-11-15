@@ -9,9 +9,6 @@
 import shutil
 import a1_make_life_chances, a1_draw_life_chances, a2_do_project_text
 import b1_make_people_forecast
-from plotly.subplots import make_subplots
-import plotly.graph_objects as go
-
 
 ## define parameters
 params = {
@@ -58,15 +55,15 @@ def execute_project():
         '<div class="header"></div>', '<div class="header"></div>']
 
     ## a1 draw life expectancy figure
-    life_chances = a1_make_life_chances.make()
-    div_list.append(a1_draw_life_chances.draw(life_chances))
+    life_chances = a1_make_life_chances.make_a1()
+    div_list.append(a1_draw_life_chances.draw_a1(life_chances))
 
     ## b1 draw birth decade figure IN PROGRESS
-    people_forecast, birth_decade_forecast = b1_make_people_forecast.make()
-    div_list.append(a1_draw_life_chances.draw(life_chances))  ## PLACEHOLDER
+    people_forecast, birth_decade = b1_make_people_forecast.make_b1()
+    div_list.append(a1_draw_life_chances.draw_a1(life_chances))  ## PLACEHOLDER
 
     ## c1 PLACEHOLDER
-    div_list.append(a1_draw_life_chances.draw(life_chances))  ## PLACEHOLDER
+    div_list.append(a1_draw_life_chances.draw_a1(life_chances))  ## PLACEHOLDER
 
     ##  a2/b2 draw project text
     project_text = a2_do_project_text.make()
@@ -74,12 +71,10 @@ def execute_project():
         div_list.append(a2_do_project_text.draw((0.5, 0.5), project_text[iter_key]))
     
     ## c2 PLACEHOLDER
-    div_list.append(a1_draw_life_chances.draw(life_chances))  ## PLACEHOLDER
+    div_list.append(a1_draw_life_chances.draw_a1(life_chances))  ## PLACEHOLDER
 
     ## write html
     write_html(div_list)
-
-
 
 
 ##########==========##########==========##########==========##########==========##########==========

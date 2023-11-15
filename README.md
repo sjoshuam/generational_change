@@ -48,6 +48,10 @@ Cells:
   - [ ] 0_execute_project.py
     - [X] Figure intitiator/writer code
     - [ ] Module executors
+  - [ ] 1_tools.py
+    - [X] parallelization tools
+    - [ ] caching tools
+  - [ ] Resolve leftover TODO in project files
 
 #### Source
 

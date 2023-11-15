@@ -5,7 +5,8 @@
 import re
 import pandas as pd
 import plotly.graph_objects as go
-from plotly import offline
+import a1_make_life_chances, z_tools
+
 
 ## parameters
 params = {
@@ -100,7 +101,7 @@ def iterate_all_life_chances(life_chances):
 ## TOP-LEVEL FUNCTION
 
 
-def draw(life_chances, params = params):
+def draw_a1(life_chances, params = params):
     """
         Generate html div code for life chances
     """
@@ -123,8 +124,8 @@ def draw(life_chances, params = params):
 if __name__ == '__main__':
 
     ## set up test
-    life_chances = pd.read_excel('io/a1_life_chances.xlsx', index_col = [0,1])
-    life_chances_drawn = draw(life_chances)
+    life_chances = z_tools.execute_or_load_cache(a1_make_life_chances.make_a1)
+    life_chances_drawn = draw_a1(life_chances)
 
 
 ##########==========##########==========##########==========##########==========##########==========

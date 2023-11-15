@@ -1,38 +1,12 @@
+"""
+    TODO: fill this in
+"""
 ##########==========##########==========##########==========##########==========##########==========
 ## INITIALIZE
 
 ## import libraries
-import multiprocessing
+from z_tools import split_index, execute_in_parallel
 import pandas as pd
-
-
-##########==========##########==========##########==========##########==========##########==========
-## GENERIC UTILITY FUNCTIONS
-
-
-def split_index(index = list[int], n_cores = 4) -> list[list]:
-    split_index = [[] for i in range(0, n_cores)]
-    for iter_index in index:
-        split_index[iter_index % n_cores] = split_index[iter_index % n_cores] + [iter_index]
-    return split_index
-
-
-def execute_in_parallel(map_function, reduce_function, indices: list[list], **kwargs: dict):
-    """
-        Purpose: executes a function in parallel chunks and then aggregates the chunks together
-            map_function: function executed in parallel
-            reduce_function: function used to aggregate outputs from map_function
-            indices: A list of lists indicates the chunks of a problem that should be fed to each
-                map_function instance for parallel processing.
-    """
-    pool = multiprocessing.Pool(min(len(indices), 8))
-    parallel_output = list()
-    for iter_index in indices:
-        kwargs.update({'index':iter_index})
-        parallel_output.append(pool.apply_async(func = map_function, kwds = kwargs.copy()))
-    parallel_output = [x.get() for x in parallel_output]
-    return reduce_function(parallel_output)
-
 
 ##########==========##########==========##########==========##########==========##########==========
 ## COMPONENT FUNCTIONS - BIRTH
@@ -190,21 +164,17 @@ def map_cohort_size_over_time(index: list[list], birth: pd.DataFrame, migrant: p
     return cohort_size
 
 
-def aggregate_cohorts_to_birth_decades(cohort_size):
+def aggregate_cohorts_to_birth_decades(people_forecast):
     """
         TODO
     """
-    cohort_size = cohort_size.copy()
-    cohort_size['birth_decade'] = ((cohort_size['year'] - cohort_size['age']) // 10) * 10
-    birth_decade_forecast = cohort_size.groupby(['birth_decade', 'year']).sum().drop(columns= 'age')
-    return birth_decade_forecast
+    birth_decades = people_forecast.copy().reset_index()
+    birth_decades['birth_decade'] = ((birth_decades['year'] - birth_decades['age']) // 10) * 10
+    birth_decades = birth_decades.groupby(['migrant_rate', 'year', 'birth_decade']).sum()
+    return birth_decades.drop(columns= 'age')
 
 
-##########==========##########==========##########==========##########==========##########==========
-## TOP-LEVEL FUNCTION
-
-
-def make(migrant_rate = 1.03):
+def forecast_people(migrant_rate = 1.03):
     """
         TODO
     """
@@ -222,29 +192,38 @@ def make(migrant_rate = 1.03):
     migrant = simulate_migrant(death = death, rate = migrant_rate)
 
     ## project cohort size at each age and calendar year
-    cohort_size = execute_in_parallel(
+    people_forecast = execute_in_parallel(
         map_function = map_cohort_size_over_time,
         reduce_function = reduce_cohort_size_over_time,
         indices = split_index(list(range(1930, 2030))),
         birth = birth, migrant = migrant, death = death
         )
 
-    ## aggregate cohort size to birth decades
-    birth_decade_forecast = aggregate_cohorts_to_birth_decades(cohort_size)
-
     ## export
-    cohort_size.to_excel('io/b1_people_forecast.xlsx', index = False)
-    birth_decade_forecast.to_excel('io/b1_birth_decade_forecase.xlsx')
-    return cohort_size, birth_decade_forecast
+    people_forecast['migrant_rate'] = migrant_rate
+    people_forecast = people_forecast.set_index(['migrant_rate', 'year', 'age'])
+    return people_forecast
+
+
+##########==========##########==========##########==========##########==========##########==========
+## TOP-LEVEL FUNCTION
+
+
+def make_b1():
+    people_forecast = list()
+    for iter_rate in [1.03, 1.05, 1.07]:
+        people_forecast.append(forecast_people(iter_rate))
+    people_forecast = pd.concat(people_forecast, axis = 0)
+    birth_decade = aggregate_cohorts_to_birth_decades(people_forecast)
+    return people_forecast, birth_decade
 
 
 ##########==========##########==========##########==========##########==========##########==========
 ## TEST CODE
 
+
 if __name__ == '__main__':
-    cohort_size, birth_decade_forecast = make()
-    
-    
-    
+    people_forecast, birth_decade = make_b1()
+
 
 ##########==========##########==========##########==========##########==========##########==========
