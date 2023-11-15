@@ -8,6 +8,7 @@
 ## import libraries
 import shutil
 import a1_make_life_chances, a1_draw_life_chances, a2_do_project_text
+import b1_make_people_forecast
 from plotly.subplots import make_subplots
 import plotly.graph_objects as go
 
@@ -56,21 +57,24 @@ def execute_project():
         '<a href="../index.html"> <div class="link_button">Return To Portfolio</div> </a>',
         '<div class="header"></div>', '<div class="header"></div>']
 
-    ## draw life expectancy figure
-    life_chances = a1_make_life_chances.make_life_chances()
+    ## a1 draw life expectancy figure
+    life_chances = a1_make_life_chances.make()
+    div_list.append(a1_draw_life_chances.draw(life_chances))
 
-    ## draw placeholders for forthcoming figures
-    for iter in range(0, 3):
-        div_list.append(a1_draw_life_chances.draw_life_chances(life_chances))
+    ## b1 draw birth decade figure IN PROGRESS
+    people_forecaset, birth_decade_size = b1_make_people_forecast.make()
+    div_list.append(a1_draw_life_chances.draw(life_chances))  ## placeholder
 
-    ## draw project text
-    project_text = a2_do_project_text.make_project_text()
+    ## c1 PLACEHOLDER
+    div_list.append(a1_draw_life_chances.draw(life_chances))  ## placeholder
+
+    ##  a2/b2 draw project text
+    project_text = a2_do_project_text.make()
     for iter_key in project_text.keys():
-        div_list.append(a2_do_project_text.draw_project_text((0.5, 0.5), project_text[iter_key]))
-
+        div_list.append(a2_do_project_text.draw((0.5, 0.5), project_text[iter_key]))
     
-
-    div_list.append(a1_draw_life_chances.draw_life_chances(life_chances))
+    ## c2 PLACEHOLDER
+    div_list.append(a1_draw_life_chances.draw(life_chances))  ## placeholder
 
     ## write html
     write_html(div_list)

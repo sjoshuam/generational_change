@@ -33,7 +33,7 @@ Cells:
   - [X] a1_make_life_chances.py
   - [X] a1_draw_life_chances.py
 - [ ] B1 Population Projection Figure with Migration Rate Slide
-  - [ ] b1_make_people_forecast.py
+  - [X] b1_make_people_forecast.py
   - [ ] b1_draw_people_forecast.py
 - [ ] C1 Wealth Projection Figure with Wealth Rate Slider
   - [ ] c1_make_wealth_forecast.py

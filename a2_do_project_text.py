@@ -17,7 +17,7 @@ params = {
 ##########==========##########==========##########==========##########==========##########==========
 ## TOP-LEVEL FUNCTION
 
-def make_project_text(loc = 'in/a2_project_text.txt'):
+def make(loc = 'in/a2_project_text.txt'):
     txt = open(loc, 'rt').read()
     txt = txt.split('<x>\n\n</x>')
     txt = {i.split('</b>')[0].strip('<b>'):i for i in txt}
@@ -25,7 +25,7 @@ def make_project_text(loc = 'in/a2_project_text.txt'):
     txt = {i:txt[i].replace('<n>', '<br><br>') for i in txt.keys()}
     return txt
 
-def draw_project_text(xy, txt):
+def draw(xy, txt):
     fig = go.Figure()
     fig = fig.update_layout(
         plot_bgcolor  = params['light'], paper_bgcolor = params['light'],
@@ -43,8 +43,8 @@ def draw_project_text(xy, txt):
 ## TEST CODE
 
 if __name__ == '__main__':
-    project_text = make_project_text()
-    draw_project_text((0.5, 0.5), project_text['Panel Explainer'])
+    project_text = make()
+    draw((0.5, 0.5), project_text['Panel Explainer'])
 
 
 ##########==========##########==========##########==========##########==========##########==========

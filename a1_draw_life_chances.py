@@ -100,7 +100,7 @@ def iterate_all_life_chances(life_chances):
 ## TOP-LEVEL FUNCTION
 
 
-def draw_life_chances(life_chances, params = params):
+def draw(life_chances, params = params):
     """
         Generate html div code for life chances
     """
@@ -111,9 +111,9 @@ def draw_life_chances(life_chances, params = params):
         sliders = draw_slider_bar(trace_list, life_chances),
         title = dict(text = '•' + ' ' * 10 + 'Survival Chances, Given Birth Year', xanchor = 'auto'),
         )
-    fig.write_html(file = 'out/life_chances.html',full_html = True, include_plotlyjs = True)
-    fig.write_html(file = 'out/life_chances.div',full_html = False, include_plotlyjs = False)
-    div = open('out/life_chances.div', 'rt').read()
+    fig.write_html(file = 'out/a1_life_chances.html',full_html = True, include_plotlyjs = True)
+    fig.write_html(file = 'out/a1_life_chances.div',full_html = False, include_plotlyjs = False)
+    div = open('out/a1_life_chances.div', 'rt').read()
     return div
 
 
@@ -123,8 +123,8 @@ def draw_life_chances(life_chances, params = params):
 if __name__ == '__main__':
 
     ## set up test
-    life_chances = pd.read_excel('io/life_chances.xlsx', index_col = [0,1])
-    life_chances_drawn = draw_life_chances(life_chances)
+    life_chances = pd.read_excel('io/a1_life_chances.xlsx', index_col = [0,1])
+    life_chances_drawn = draw(life_chances)
 
 
 ##########==========##########==========##########==========##########==========##########==========
