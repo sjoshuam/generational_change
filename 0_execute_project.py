@@ -62,11 +62,11 @@ def execute_project():
     div_list.append(a1_draw_life_chances.draw(life_chances))
 
     ## b1 draw birth decade figure IN PROGRESS
-    people_forecaset, birth_decade_size = b1_make_people_forecast.make()
-    div_list.append(a1_draw_life_chances.draw(life_chances))  ## placeholder
+    people_forecast, birth_decade_forecast = b1_make_people_forecast.make()
+    div_list.append(a1_draw_life_chances.draw(life_chances))  ## PLACEHOLDER
 
     ## c1 PLACEHOLDER
-    div_list.append(a1_draw_life_chances.draw(life_chances))  ## placeholder
+    div_list.append(a1_draw_life_chances.draw(life_chances))  ## PLACEHOLDER
 
     ##  a2/b2 draw project text
     project_text = a2_do_project_text.make()
@@ -74,7 +74,7 @@ def execute_project():
         div_list.append(a2_do_project_text.draw((0.5, 0.5), project_text[iter_key]))
     
     ## c2 PLACEHOLDER
-    div_list.append(a1_draw_life_chances.draw(life_chances))  ## placeholder
+    div_list.append(a1_draw_life_chances.draw(life_chances))  ## PLACEHOLDER
 
     ## write html
     write_html(div_list)

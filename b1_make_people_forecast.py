@@ -194,9 +194,10 @@ def aggregate_cohorts_to_birth_decades(cohort_size):
     """
         TODO
     """
+    cohort_size = cohort_size.copy()
     cohort_size['birth_decade'] = ((cohort_size['year'] - cohort_size['age']) // 10) * 10
-    birth_decade_size = cohort_size.groupby(['birth_decade', 'year']).sum().drop(columns = 'age')
-    return birth_decade_size
+    birth_decade_forecast = cohort_size.groupby(['birth_decade', 'year']).sum().drop(columns= 'age')
+    return birth_decade_forecast
 
 
 ##########==========##########==========##########==========##########==========##########==========
@@ -229,16 +230,19 @@ def make(migrant_rate = 1.03):
         )
 
     ## aggregate cohort size to birth decades
-    birth_decade_size = aggregate_cohorts_to_birth_decades(cohort_size)
+    birth_decade_forecast = aggregate_cohorts_to_birth_decades(cohort_size)
 
-    return cohort_size, birth_decade_size
+    ## export
+    cohort_size.to_excel('io/b1_people_forecast.xlsx', index = False)
+    birth_decade_forecast.to_excel('io/b1_birth_decade_forecase.xlsx')
+    return cohort_size, birth_decade_forecast
 
 
 ##########==========##########==========##########==========##########==========##########==========
 ## TEST CODE
 
 if __name__ == '__main__':
-    cohort_size, birth_decade_size = make()
+    cohort_size, birth_decade_forecast = make()
     
     
     
