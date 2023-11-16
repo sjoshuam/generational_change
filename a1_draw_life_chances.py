@@ -8,16 +8,11 @@ import plotly.graph_objects as go
 import a1_make_life_chances, z_tools
 
 
-## parameters
-params = {
-    'dark': '#663D14', 'light': '#FFF9F2',
-}
-
 ##########==========##########==========##########==========##########==========##########==========
 ## COMPONENT FUNCTIONS
 
 
-def set_up_figure(life_changes):
+def set_up_figure(life_changes, params = z_tools.params):
     """
         Set up a basic figure
     """
@@ -101,7 +96,7 @@ def iterate_all_life_chances(life_chances):
 ## TOP-LEVEL FUNCTION
 
 
-def draw_a1(life_chances, params = params):
+def draw_a1(life_chances):
     """
         Generate html div code for life chances
     """

@@ -5,7 +5,7 @@
 ## INITIALIZE
 
 ## import libraries
-from z_tools import split_index, execute_in_parallel
+from z_tools import split_index, execute_in_parallel, params
 import pandas as pd
 
 ##########==========##########==========##########==========##########==========##########==========
@@ -164,16 +164,6 @@ def map_cohort_size_over_time(index: list[list], birth: pd.DataFrame, migrant: p
     return cohort_size
 
 
-def aggregate_cohorts_to_birth_decades(people_forecast):
-    """
-        TODO
-    """
-    birth_decades = people_forecast.copy().reset_index()
-    birth_decades['birth_decade'] = ((birth_decades['year'] - birth_decades['age']) // 10) * 10
-    birth_decades = birth_decades.groupby(['migrant_rate', 'year', 'birth_decade']).sum()
-    return birth_decades.drop(columns= 'age')
-
-
 def forecast_people(migrant_rate = 1.03):
     """
         TODO
@@ -195,7 +185,7 @@ def forecast_people(migrant_rate = 1.03):
     people_forecast = execute_in_parallel(
         map_function = map_cohort_size_over_time,
         reduce_function = reduce_cohort_size_over_time,
-        indices = split_index(list(range(1930, 2030))),
+        indices = split_index(list(range(1930, 2100))),
         birth = birth, migrant = migrant, death = death
         )
 
@@ -203,6 +193,37 @@ def forecast_people(migrant_rate = 1.03):
     people_forecast['migrant_rate'] = migrant_rate
     people_forecast = people_forecast.set_index(['migrant_rate', 'year', 'age'])
     return people_forecast
+
+
+def cohorts_pct_by_birth_decade(people_forecast, params = params):
+    """
+        TODO
+    """
+
+    ## exclude birth decades outside a given range
+    birth_decade = people_forecast.copy().reset_index()
+    birth_decade['birth_decade'] = ((birth_decade['year'] - birth_decade['age']) // 10) * 10
+    birth_decade['include'] = birth_decade['birth_decade'].isin(params['birth_decade_interest'])
+    birth_decade['birth_decade'] *= birth_decade['include'].astype(int)
+    birth_decade = birth_decade.drop(columns = 'include')
+
+    ## aggregate cohort sizes by birth decade
+    birth_decade = birth_decade.groupby(['migrant_rate', 'year', 'birth_decade']).sum()
+    birth_decade = pd.DataFrame({'size':birth_decade.drop(columns= 'age').sum(axis = 1)})
+
+    ## make all cohort sizes relative to total
+    birth_denominator = birth_decade.copy().reset_index().drop(columns = 'birth_decade')
+    birth_denominator = birth_denominator.groupby(['migrant_rate', 'year']).sum()
+    birth_denominator.columns = ['pct']
+    birth_decade = birth_decade.reset_index('birth_decade').merge(
+        right = birth_denominator, how = 'left', left_index = True, right_index = True)
+    birth_decade['pct'] = (birth_decade['size'] / birth_decade['pct']).round(2)
+
+    ## do final index adjustment
+    birth_decade = birth_decade.reset_index().set_index(['migrant_rate', 'birth_decade', 'year'])
+    birth_decade = birth_decade.sort_index()
+    
+    return birth_decade
 
 
 ##########==========##########==========##########==========##########==========##########==========
@@ -214,7 +235,7 @@ def make_b1():
     for iter_rate in [1.03, 1.05, 1.07]:
         people_forecast.append(forecast_people(iter_rate))
     people_forecast = pd.concat(people_forecast, axis = 0)
-    birth_decade = aggregate_cohorts_to_birth_decades(people_forecast)
+    birth_decade = cohorts_pct_by_birth_decade(people_forecast)
     return people_forecast, birth_decade
 
 

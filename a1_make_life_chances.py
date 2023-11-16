@@ -103,7 +103,6 @@ def make_a1(params = params):
     parallel_output = [pd.concat(i.get(), axis = 0) for i in parallel_output]
     pool.close()
     life_chances = pd.concat(parallel_output, axis = 0).sort_index().round({'Alive':3})
-    life_chances.to_excel('io/a1_life_chances.xlsx')
     return life_chances
 
 

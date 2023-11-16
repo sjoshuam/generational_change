@@ -7,14 +7,12 @@
 
 ## import libraries
 import shutil
-import a1_make_life_chances, a1_draw_life_chances, a2_do_project_text
-import b1_make_people_forecast
+import a1_make_life_chances, a1_draw_life_chances
+import b1_make_people_forecast, b1_draw_people_forecast
 
-## define parameters
-params = {
-    'years': [2023, 2123],
-    'dark': '#663D14', 'light': '#FFF9F2',
-}
+
+import a2_do_project_text
+
 
 
 ##########==========##########==========##########==========##########==========##########==========
@@ -60,7 +58,7 @@ def execute_project():
 
     ## b1 draw birth decade figure IN PROGRESS
     people_forecast, birth_decade = b1_make_people_forecast.make_b1()
-    div_list.append(a1_draw_life_chances.draw_a1(life_chances))  ## PLACEHOLDER
+    div_list.append(b1_draw_people_forecast.draw_b1(birth_decade))
 
     ## c1 PLACEHOLDER
     div_list.append(a1_draw_life_chances.draw_a1(life_chances))  ## PLACEHOLDER

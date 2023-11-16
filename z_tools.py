@@ -9,7 +9,10 @@
 import multiprocessing, pickle, os
 
 params = dict(
-    n_cores = min(max(multiprocessing.cpu_count() - 1, 1), 4)
+    n_cores = min(max(multiprocessing.cpu_count() - 1, 1), 4),
+    dark = '#663D14', light = '#FFF9F2',
+    birth_decade_interest = range(1940, 2010 + 1, 10),
+    bar_time_window = range(1980, 2060)
     )
 
 ##########==========##########==========##########==========##########==========##########==========

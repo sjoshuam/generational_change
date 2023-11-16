@@ -50,8 +50,9 @@ Cells:
     - [ ] Module executors
   - [ ] 1_tools.py
     - [X] parallelization tools
-    - [ ] caching tools
+    - [X] caching tools
   - [ ] Resolve leftover TODO in project files
+  - [ ] Confirm all doc strings written
 
 #### Source
 
