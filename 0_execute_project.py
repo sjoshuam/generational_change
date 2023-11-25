@@ -9,8 +9,6 @@
 import shutil
 import a1_make_life_chances, a1_draw_life_chances
 import b1_make_people_forecast, b1_draw_people_forecast
-
-
 import a2_do_project_text
 
 
@@ -45,6 +43,9 @@ def write_html(div_list):
 
 
 def execute_project():
+    """
+        TODO: FILL IN FINAL DISCRIPTION AT THE END
+    """
 
     ## generate container for div elements
     div_list = list()
@@ -56,7 +57,7 @@ def execute_project():
     life_chances = a1_make_life_chances.make_a1()
     div_list.append(a1_draw_life_chances.draw_a1(life_chances))
 
-    ## b1 draw birth decade figure IN PROGRESS
+    ## b1 draw birth decade figure
     people_forecast, birth_decade = b1_make_people_forecast.make_b1()
     div_list.append(b1_draw_people_forecast.draw_b1(birth_decade))
 

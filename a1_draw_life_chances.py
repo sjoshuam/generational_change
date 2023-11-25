@@ -2,8 +2,6 @@
 ## INITIALIZATION
 
 ## imports
-import re
-import pandas as pd
 import plotly.graph_objects as go
 import a1_make_life_chances, z_tools
 
@@ -70,11 +68,11 @@ def draw_slider_bar(trace_list, life_chances):
         steps.append(step_iter)
 
     sliders = [dict(
-            active = len(birth_years),
+            active = len(birth_years) - 1,
             steps = steps,
             currentvalue = {'prefix':'Birth Year: '}
             )]
-    #fig.update_layout(sliders = sliders)
+    
     return sliders
 
 

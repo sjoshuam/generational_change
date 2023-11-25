@@ -11,9 +11,24 @@ import multiprocessing, pickle, os
 params = dict(
     n_cores = min(max(multiprocessing.cpu_count() - 1, 1), 4),
     dark = '#663D14', light = '#FFF9F2',
-    birth_decade_interest = range(1940, 2010 + 1, 10),
-    bar_time_window = range(1980, 2060)
+    birth_decade_interest = range(1940, 2020, 10),
+    bar_time_window = range(1980, 2060),
+    migrant_rate = [1.01, 1.03, 1.05, 1.07, 1.09]
     )
+
+params['people_colors'] = {
+    'Other':  params['light'],
+    1940:    'hsv( 30, 0.5, 0.60)',
+    1950:    'hsv( 45, 0.5, 0.80)',
+    1960:    'hsv( 60, 0.5, 0.60)',
+    1970:    'hsv( 75, 0.5, 0.80)',
+    1980:    'hsv(195, 0.5, 0.60)',
+    1990:    'hsv(210, 0.5, 0.80)',
+    2000:    'hsv(225, 0.5, 0.60)',
+    2010:    'hsv(240, 0.5, 0.80)',
+
+
+}
 
 ##########==========##########==========##########==========##########==========##########==========
 ## UTILITY FUNCTIONS - PARALLELIZATION
@@ -75,6 +90,7 @@ def map_freq_counts(value_list: list, index: list) -> dict:
 def execute_or_load_cache(function):
     file_name = 'io/' + function.__qualname__ + '.pkl'
     if os.path.exists(file_name):
+        print('execute_or_load_cache(): Loading From Cache')
         outputs = pickle.load(open(file_name, 'rb'))
     else:
         outputs = function()

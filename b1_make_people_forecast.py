@@ -5,7 +5,8 @@
 ## INITIALIZE
 
 ## import libraries
-from z_tools import split_index, execute_in_parallel, params
+import z_tools
+from z_tools import split_index, execute_in_parallel
 import pandas as pd
 
 ##########==========##########==========##########==========##########==========##########==========
@@ -195,7 +196,7 @@ def forecast_people(migrant_rate = 1.03):
     return people_forecast
 
 
-def cohorts_pct_by_birth_decade(people_forecast, params = params):
+def cohorts_pct_by_birth_decade(people_forecast, params = z_tools.params):
     """
         TODO
     """
@@ -217,7 +218,7 @@ def cohorts_pct_by_birth_decade(people_forecast, params = params):
     birth_denominator.columns = ['pct']
     birth_decade = birth_decade.reset_index('birth_decade').merge(
         right = birth_denominator, how = 'left', left_index = True, right_index = True)
-    birth_decade['pct'] = (birth_decade['size'] / birth_decade['pct']).round(2)
+    birth_decade['pct'] = (birth_decade['size'] / birth_decade['pct']).round(3)
 
     ## do final index adjustment
     birth_decade = birth_decade.reset_index().set_index(['migrant_rate', 'birth_decade', 'year'])
@@ -230,9 +231,9 @@ def cohorts_pct_by_birth_decade(people_forecast, params = params):
 ## TOP-LEVEL FUNCTION
 
 
-def make_b1():
+def make_b1(params = z_tools.params):
     people_forecast = list()
-    for iter_rate in [1.03, 1.05, 1.07]:
+    for iter_rate in params['migrant_rate']:
         people_forecast.append(forecast_people(iter_rate))
     people_forecast = pd.concat(people_forecast, axis = 0)
     birth_decade = cohorts_pct_by_birth_decade(people_forecast)
