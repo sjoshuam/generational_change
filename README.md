@@ -32,15 +32,12 @@ Cells:
 - [X] A1 Life Expectancy Figure with Birthyear Slider 
   - [X] a1_make_life_chances.py
   - [X] a1_draw_life_chances.py
-- [ ] B1 Population Projection Figure with Migration Rate Slide
+- [X] B1 Population Projection Figure with Migration Rate Slide
   - [X] b1_make_people_forecast.py
-  - [ ] b1_draw_people_forecast.py
-- [ ] C1 Wealth Projection Figure with Wealth Rate Slider
-  - [ ] c1_make_wealth_forecast.py
-  - [ ] c1_draw_wealth_forecast.py
-- [ ] C2 Voting Projection Figure with Age/Cohort Slider
-  - [ ] c2_make_voting_forecast.py
-  - [ ] c2_draw_voting_forecast.py
+  - [X] b1_draw_people_forecast.py
+- [ ] C1/C2 Weighted Projection Figures with Wealth/Politics Sliders
+  - [ ] c0_make_weighted_forecast.py
+  - [ ] c0_draw_weighted_forecast.py
 - [ ] A2/B2 Explainer Text
   - [X] a2_do_project_text.py
   - [ ] project_text.txt

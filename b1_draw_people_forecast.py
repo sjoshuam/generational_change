@@ -1,6 +1,7 @@
 """
     TODO
 """
+
 ##########==========##########==========##########==========##########==========##########==========
 ## HEADER
 
@@ -61,7 +62,7 @@ def draw_birth_decade_bars(migrant_rate, birth_decade, params = z_tools.params) 
                 visible = migrant_rate == min(params['migrant_rate']),
                 x = bd_subset.loc[iter_index, 'year'],
                 y = bd_subset.loc[iter_index, 'pct'],
-                marker = dict( color = params['people_colors'][iter_name] )
+                marker = dict( color = params['cohort_colors'][iter_name] )
                 )
             })
     return trace_list
