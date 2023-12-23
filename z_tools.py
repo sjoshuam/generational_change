@@ -12,8 +12,10 @@ params = dict(
     n_cores = min(max(multiprocessing.cpu_count() - 1, 1), 4),
     dark = '#663D14', light = '#FFF9F2',
     birth_decade_interest = range(1940, 2020, 10),
-    bar_time_window = range(1980, 2060),
-    migrant_rate = [1.01, 1.03, 1.05, 1.07, 1.09]
+    bar_time_window  = range(1980, 2060),
+    proj_time_window = range(2020, 2060),
+    migrant_rate = [1.01, 1.03, 1.05, 1.07, 1.09],
+    cohort_pct = [0.00, 0.15, 0.30, 0.50, 0.70, 0.85, 1.00]
     )
 
 params['cohort_colors'] = {
