@@ -15,7 +15,7 @@ params = dict(
     bar_time_window  = range(1980, 2060),
     proj_time_window = range(2020, 2060),
     migrant_rate = [1.05, 1.10, 1.15, 1.20, 1.25, 1.30],
-    cohort_pct = [0.00, 0.15, 0.30, 0.50, 0.70, 0.85, 1.00]
+    cohort_pct = [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9]
     )
 
 params['cohort_colors'] = {
@@ -31,8 +31,9 @@ params['cohort_colors'] = {
 }
 
 params['lean_colors'] = {
-    'con':  'hsv( 30, 0.5, 0.7)',
-    'lib':  'hsv(210, 0.5, 0.7)',
+    'con':  'hsv( 15, 0.5, 0.9)',
+    'lib':  'hsv(195, 0.5, 0.7)',
+    'either': params['dark'],
     'none': params['light'],
 }
 

@@ -35,7 +35,8 @@ def set_up_figure(params = z_tools.params) -> go.Figure:
             tick0 = 0.1, dtick = 0.2, gridcolor = params['dark']
             ),
         barmode = 'stack',
-        title = dict(text = '•' + ' ' * 10 + 'Birth Cohort Population Percentage', xanchor = 'auto')
+        title = dict(
+            text = 'Birth Cohort Population Percentage', xanchor = 'auto')
     )
     return fig
 

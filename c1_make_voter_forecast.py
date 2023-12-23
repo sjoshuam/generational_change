@@ -59,8 +59,8 @@ def refine_vote_data(vote: pd.DataFrame, params = z_tools.params) -> pd.DataFram
     ## infer children and elderly
     idx = pd.DataFrame({'age':range(0, 100)})
     vote = idx.merge(vote, how = 'left', on = 'age')
-    vote.loc[vote['age'] < 18, ['con', 'lib']] = 0
-    vote.loc[vote['age'] < 18, ['none']] = 1
+    vote.loc[vote['age'] < 12, ['con', 'lib']] = 0
+    vote.loc[vote['age'] < 12, ['none']] = 1
     vote = vote.interpolate(axis = 'index', limit_direction = 'both')
 
     ## return results
@@ -87,7 +87,7 @@ def project_pure_cohort_scenario(
         Projects political leanings based on the assumption that learning is purely a function of
         cohort.
     """
-    ## assume children will vote like the 18 year old cohort
+    ## assume children will have political leanings most similar to the 18 year old cohort
     cause_cohort = vote.copy()
     cause_cohort.loc[vote['age'] < 18, ['con', 'none', 'lib']] = np.nan
     cause_cohort = cause_cohort.interpolate(limit_direction = 'backward')
@@ -107,10 +107,12 @@ def project_pure_cohort_scenario(
     people_forecast = people_forecast.drop(columns = 'cohort')
     cause_cohort = cause_cohort.drop(columns = 'cohort')
 
-    ## readjust totals so that lib + con + none = 1, reset children to 0% participation
+    ## readjust totals so that lib + con + none = 1
     for iter_col in ['con', 'lib']: cause_cohort[iter_col] *= (1 - cause_cohort['none'])
-    cause_cohort.loc[cause_cohort['age'] < 18, ['con', 'lib']] = 0
-    cause_cohort.loc[cause_cohort['age'] < 18, ['none']] = 1
+
+    ## reset children to 0% participation
+    cause_cohort.loc[cause_cohort['age'] < 12, ['con', 'lib']] = 0
+    cause_cohort.loc[cause_cohort['age'] < 12, ['none']] = 1
 
     ## convert percentages to headcounts and return
     for iter_politic in ['con', 'none', 'lib']:
@@ -155,6 +157,7 @@ def make_c1(people_forecast, params = z_tools.params):
     vote_projections = [
         project_age_cohort_mix(cause_age, cause_cohort, pct_cohort=i) for i in params['cohort_pct']]
     vote_projections = pd.concat(vote_projections)
+    vote_projections['either'] = vote_projections['con'] + vote_projections['lib']
     return vote_projections
 
 

@@ -32,7 +32,6 @@ def set_up_figure(params = z_tools.params) -> go.Figure:
             range = [0, 1], tickformat = '0%',
             tick0 = 0.1, dtick = 0.2, gridcolor = params['dark']
             ),
-        ##barmode = 'stack',
         title = dict(text = '•' + ' ' * 10 + 'Projected Political Lean Over Time', xanchor = 'auto')
     )
     return fig
@@ -44,19 +43,19 @@ def draw_voter_blocs(
         TODO:
     """
     x_coord = voter_forecast.loc[cohort_pct].index.values
-    lean_name = {'lib': 'Liberal', 'con': 'Conservative', 'none': 'Apolitical'}
-    fill_mode = 'tozeroy'
+    lean_name = {'con': 'Conservative', 'lib': 'Liberal', 'either': 'Partisan (C+L)'}
     trace_list = dict()
+    dash_type = 'solid'
     for iter_lean in lean_name.keys():
-        if iter_lean != 'lib': fill_mode = 'tonexty'
+        if iter_lean == 'either': dash_type = 'dot'
         trace_list.update({
-            str(cohort_pct) + ' ' + lean_name[iter_lean]: go.Scatter(
+            str(int(cohort_pct * 100)) + '% ' + lean_name[iter_lean]: go.Scatter(
                 x = x_coord, y = voter_forecast.loc[cohort_pct, iter_lean].round(3),
-                showlegend = True, fill = fill_mode,
+                showlegend = True,
                 line_color = params['lean_colors'][iter_lean],
                 visible = cohort_pct == 0.5,
                 name = lean_name[iter_lean],
-                stackgroup = 'one'
+                line = dict(width = 3, dash = dash_type)
                 )})
     return trace_list
 
@@ -76,7 +75,7 @@ def draw_slider_bar(trace_list):
         steps.append(step_iter)
 
     sliders = [dict(
-            active = cohort_pct_list.index('0.5'),
+            active = cohort_pct_list.index('50%'),
             steps = steps,
             currentvalue = {'prefix':'Cohort Influence Percentage: '}
             )]
@@ -102,7 +101,7 @@ def draw_c1(voter_forecast):
     fig = fig.update_layout(
         sliders = draw_slider_bar(trace_list),
         title = dict(
-            text = '•' + ' ' * 10 + 'Projected Political Lean: Age Versus Cohort', xanchor= 'auto'),
+            text = 'Political Lean: Age Versus Cohort', xanchor= 'auto'),
         )
     fig.write_html(file = 'out/c1_voter_forecast.html',full_html = True, include_plotlyjs = True)
     fig.write_html(file = 'out/c1_voter_forecast.div',full_html = False, include_plotlyjs = False)

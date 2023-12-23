@@ -14,6 +14,11 @@
 ##########==========##########==========##########==========##########==========##########==========
 ## INITIALIZATION
 
+## temporarily suppress panda's future warning
+import warnings
+warnings.simplefilter(action='ignore', category=FutureWarning)
+if __name__ == '__main__': print('\nNOTE: FUTURE WARNINGS ARE CURRENTLY BEING SURPRESSED')
+
 ## import libraries
 import shutil
 import a1_make_life_chances, a1_draw_life_chances
@@ -73,12 +78,12 @@ def execute_project():
 
     ## c1 draw vote projection figure
     voter_forecast = c1_make_voter_forecast.make_c1(people_forecast = people_forecast)
-    div_list.append(c1_draw_voter_forecast.draw_a1(life_chances))
+    div_list.append(c1_draw_voter_forecast.draw_c1(voter_forecast = voter_forecast))
 
     ##  a2/b2 draw project text
     project_text = a2_do_project_text.make()
     for iter_key in project_text.keys():
-        div_list.append(a2_do_project_text.draw((0.5, 0.5), project_text[iter_key]))
+        div_list.append(a2_do_project_text.draw((0, 0), project_text[iter_key]))
 
     ## write html
     write_html(div_list)
