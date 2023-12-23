@@ -18,7 +18,7 @@
 import shutil
 import a1_make_life_chances, a1_draw_life_chances
 import b1_make_people_forecast, b1_draw_people_forecast
-import c1_make_voter_forecast #,c1_draw_voter_forecast
+import c1_make_voter_forecast, c1_draw_voter_forecast
 import a2_do_project_text
 
 ##########==========##########==========##########==========##########==========##########==========
@@ -73,7 +73,7 @@ def execute_project():
 
     ## c1 draw vote projection figure
     voter_forecast = c1_make_voter_forecast.make_c1(people_forecast = people_forecast)
-    div_list.append(a1_draw_life_chances.draw_a1(life_chances))  ## PLACEHOLDER
+    div_list.append(c1_draw_voter_forecast.draw_a1(life_chances))
 
     ##  a2/b2 draw project text
     project_text = a2_do_project_text.make()

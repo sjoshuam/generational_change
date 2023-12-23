@@ -27,7 +27,7 @@ import numpy as np
 
 def simplify_people_forecast(pf: pd.DataFrame) -> pd.DataFrame:
     """Removes unneeded complexity from people forecast"""
-    return pd.DataFrame({'people':pf.loc[1.05].sum(axis = 1)}).reset_index()
+    return pd.DataFrame({'people':pf.loc[1.15].sum(axis = 1)}).reset_index()
 
 
 def import_vote_data():
@@ -165,7 +165,6 @@ def make_c1(people_forecast, params = z_tools.params):
 if __name__ == '__main__':
     people_forecast = z_tools.execute_or_load_cache(b1_make_people_forecast.make_b1)[0]
     voter_forecast = make_c1(people_forecast = people_forecast)
-    print(voter_forecast)
 
 
 ##########==========##########==========##########==========##########==========##########==========

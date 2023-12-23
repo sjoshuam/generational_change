@@ -92,9 +92,9 @@ def draw_slider(registry: list[tuple], params = z_tools.params):
         
     ## package as a sider object
     sliders = [dict(
-        active = params['migrant_rate'].index(1.05),
+        active = params['migrant_rate'].index(1.15),
         steps = steps,
-        currentvalue = {'prefix': 'Migration Rate: '}
+        currentvalue = {'prefix': 'Lifetime Migration Rate: '}
         )]
     
     return sliders

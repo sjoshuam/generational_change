@@ -14,7 +14,7 @@ params = dict(
     birth_decade_interest = range(1940, 2020, 10),
     bar_time_window  = range(1980, 2060),
     proj_time_window = range(2020, 2060),
-    migrant_rate = [1.01, 1.03, 1.05, 1.07, 1.09],
+    migrant_rate = [1.05, 1.10, 1.15, 1.20, 1.25, 1.30],
     cohort_pct = [0.00, 0.15, 0.30, 0.50, 0.70, 0.85, 1.00]
     )
 
@@ -28,8 +28,12 @@ params['cohort_colors'] = {
     1990:    'hsv(175, 0.5, 0.60)',
     2000:    'hsv(185, 0.5, 0.70)',
     2010:    'hsv(195, 0.5, 0.80)',
+}
 
-
+params['lean_colors'] = {
+    'con':  'hsv( 30, 0.5, 0.7)',
+    'lib':  'hsv(210, 0.5, 0.7)',
+    'none': params['light'],
 }
 
 ##########==========##########==========##########==========##########==========##########==========
@@ -89,13 +93,13 @@ def map_freq_counts(value_list: list, index: list) -> dict:
 ## UTILITY FUNCTIONS - CACHING
 
 
-def execute_or_load_cache(function):
+def execute_or_load_cache(function, **kwargs):
     file_name = 'io/' + function.__qualname__ + '.pkl'
     if os.path.exists(file_name):
         print('execute_or_load_cache(): Loading From Cache')
         outputs = pickle.load(open(file_name, 'rb'))
     else:
-        outputs = function()
+        outputs = function(**kwargs)
         pickle.dump(outputs, open(file_name, 'wb'))
     return outputs
 
