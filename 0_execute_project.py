@@ -1,25 +1,35 @@
 """
-    TODO:
+    This is the top-level executable python file for this project.  All other code is called though
+    it.  Project generates a file called generational_change.html, which is a six-panel web page
+    that walks through a highly simplified model of generational change and its potential effect
+    on US presidential voting.  It calls eight module scripts:
+
+    - a1_make_life_chances, a1_draw_life_chances: Life expectancy calculations and figures
+    - b1_make_people_forecast, b1_draw_people_forecast: Population size forecasts by birth decade
+    - c1_make_voter_forecast, c1_draw_voter_forecast: US presidential vote forecasts
+    - a2_do_project_text: Explanatory text for a1, b1, c1
+    - z_tools: Utility code for parallel processing, plus control parameters
+
 """
 ##########==========##########==========##########==========##########==========##########==========
 ## INITIALIZATION
-
 
 ## import libraries
 import shutil
 import a1_make_life_chances, a1_draw_life_chances
 import b1_make_people_forecast, b1_draw_people_forecast
-import c1_make_voter_forecast #,c1_draw_voter_forecase
+import c1_make_voter_forecast #,c1_draw_voter_forecast
 import a2_do_project_text
 
 ##########==========##########==========##########==========##########==========##########==========
 ## COMPONENT FUNCTIONS
-## colors: 'hsv(30,5,100)' '#FFF9F2' / 'hsv(30,80,40)' '#663D14'
 
 
-def write_html(div_list):
+def write_html(div_list: list) -> str:
     """
-        Assembles <div> sections into a single html file
+        This function packages a list of visualizations (coded as html div sections) together as
+        one coherent web page.  It also copies files into the portfolio repository, so that
+        the updated files will upload to the github.io webpage.
     """
     header = '\n'.join([
         '<html>', '<header>',
@@ -43,7 +53,8 @@ def write_html(div_list):
 
 def execute_project():
     """
-        TODO: FILL IN FINAL DISCRIPTION AT THE END
+        Executes the code from all project modules in sequence, running the project from start
+        to finish.
     """
 
     ## generate container for div elements

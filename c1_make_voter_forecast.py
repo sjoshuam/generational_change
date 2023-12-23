@@ -1,5 +1,17 @@
 """
-    TODO
+    Module projects US political leanings from population projections, differentiated by birth
+    year and age.  Based on the American National Election Survey, we can roughly estimate how
+    the political leaning of each age group in the American population.  However, these leanings
+    can be attributed to age and/or cohort:
+
+    - Age:  Older Americans tend to be more conservative because they are older.
+    - Cohort: Older Americans tend to be more conservative because of the decades in which their
+    formative live experiences happened.
+
+    This module makes multiple projections, where each projection makes different assumptions
+    about the relative power of age versus cohort in predicting future political leanings. The
+    output is a pd.DataFrame of projections, ready for visualization.
+
 """
 
 ##########==========##########==========##########==========##########==========##########==========
@@ -13,23 +25,22 @@ import numpy as np
 ## COMPONENT FUNCTIONS
 
 
-def simplify_people_forecast(pf):
+def simplify_people_forecast(pf: pd.DataFrame) -> pd.DataFrame:
     """Removes unneeded complexity from people forecast"""
     return pd.DataFrame({'people':pf.loc[1.05].sum(axis = 1)}).reset_index()
 
 
 def import_vote_data():
-    """Import raw datasets"""
+    """Imports ANES data on political leanings by age"""
     url = 'in/c0_weight_data.xlsx'
     vote   = pd.read_excel(url, sheet_name = 'vote', header = 0, index_col = 0)
     return vote
 
 
-def refine_vote_data(vote, params = z_tools.params):
+def refine_vote_data(vote: pd.DataFrame, params = z_tools.params) -> pd.DataFrame:
     """
-        TODO:
+        shapes and refines ANES data on political leanings by age group
     """
-
     ## reshape data to con/lib/mod/none percentages for each year of date
     vote = vote.melt(var_name = 'vote', value_name = 'count', ignore_index = False).reset_index()
     vote['vote'] = vote['vote'].str.slice(0, 1).astype(int).replace({
@@ -56,9 +67,11 @@ def refine_vote_data(vote, params = z_tools.params):
     return vote.round(6)
 
 
-def project_pure_age_scenario(people_forecast, vote, params = z_tools.params):
+def project_pure_age_scenario(
+        people_forecast: pd.DataFrame, vote: pd.DataFrame, params = z_tools.params) -> pd.DataFrame:
     """
-        TODO:
+        Projects political leanings based on the assumption that leaning is purely a function of
+        age.
     """
     cause_age = people_forecast.merge(right = vote, how = 'left', on = 'age')
     for iter_politic in ['con', 'none', 'lib']:
@@ -68,9 +81,11 @@ def project_pure_age_scenario(people_forecast, vote, params = z_tools.params):
     return cause_age.sort_values(['year', 'age'])
 
 
-def project_pure_cohort_scenario(people_forecast, vote, params = z_tools.params):
+def project_pure_cohort_scenario(
+        people_forecast: pd.DataFrame, vote: pd.DataFrame, params = z_tools.params) -> pd.DataFrame:
     """
-        TODO:
+        Projects political leanings based on the assumption that learning is purely a function of
+        cohort.
     """
     ## assume children will vote like the 18 year old cohort
     cause_cohort = vote.copy()
@@ -105,25 +120,22 @@ def project_pure_cohort_scenario(people_forecast, vote, params = z_tools.params)
     return cause_cohort.sort_values(['year', 'age'])
 
 
-def project_age_cohort_mix(cause_age, cause_cohort, pct_cohort):
+def project_age_cohort_mix(
+        cause_age: pd.DataFrame, cause_cohort: pd.DataFrame, pct_cohort: float) -> pd.DataFrame:
     """
-        TODO:
+        Constructs a weighted average of political leanings projections based on age projections
+        based on cohort.  This corresponds to making a specific assumption about the relative
+        influence of age and cohort effects on political leanings.
     """
     cause_age = cause_age.set_index(['year', 'age']) * (1 - pct_cohort)
     cause_cohort = cause_cohort.set_index(['year', 'age']) * pct_cohort
     projection = (cause_age + cause_cohort).round(6).reset_index()
     projection['cohort_pct'] = pct_cohort
     projection = projection.set_index(['cohort_pct', 'year', 'age']).round().astype(int)
+    projection = projection.reset_index().groupby(['cohort_pct', 'year']).sum()
+    projection = projection.drop(columns = 'age')
+    projection = projection.div(projection.sum(axis = 1), axis = 0)
     return projection
-
-
-def sum_votes(vote_projections):
-    """
-        TODO:
-    """
-    vote_projections = pd.concat(vote_projections).reset_index()
-    vote_projections = vote_projections.groupby(['cohort_pct', 'year']).sum().drop(columns = 'age')
-    return vote_projections
 
 
 ##########==========##########==========##########==========##########==========##########==========
@@ -132,7 +144,8 @@ def sum_votes(vote_projections):
 
 def make_c1(people_forecast, params = z_tools.params):
     """
-        TODO:
+        Executes the functions in this module in sequence, generating population political
+        leanings projections for an array of age vs. cohort influence assumptions.
     """
     people_forecast = simplify_people_forecast(people_forecast)
     vote = import_vote_data()
@@ -141,7 +154,7 @@ def make_c1(people_forecast, params = z_tools.params):
     cause_cohort = project_pure_cohort_scenario(people_forecast, vote)
     vote_projections = [
         project_age_cohort_mix(cause_age, cause_cohort, pct_cohort=i) for i in params['cohort_pct']]
-    vote_projections = sum_votes(vote_projections)
+    vote_projections = pd.concat(vote_projections)
     return vote_projections
 
 
@@ -152,6 +165,7 @@ def make_c1(people_forecast, params = z_tools.params):
 if __name__ == '__main__':
     people_forecast = z_tools.execute_or_load_cache(b1_make_people_forecast.make_b1)[0]
     voter_forecast = make_c1(people_forecast = people_forecast)
+    print(voter_forecast)
 
 
 ##########==========##########==========##########==========##########==========##########==========
