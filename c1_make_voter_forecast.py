@@ -151,7 +151,7 @@ def make_c1(people_forecast, params = z_tools.params):
 
 if __name__ == '__main__':
     people_forecast = z_tools.execute_or_load_cache(b1_make_people_forecast.make_b1)[0]
-    x = make_c1(people_forecast = people_forecast)
+    voter_forecast = make_c1(people_forecast = people_forecast)
 
 
 ##########==========##########==========##########==========##########==========##########==========
