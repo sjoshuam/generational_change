@@ -18,6 +18,7 @@ def set_up_figure(life_changes, params = z_tools.params):
     """
         Set up a basic figure
     """
+    m = params['margin']
     year_range = life_changes['Age'].agg({'min':min, 'max':max}).values
     fig = go.Figure()
     fig = fig.update_layout(
@@ -26,7 +27,8 @@ def set_up_figure(life_changes, params = z_tools.params):
         yaxis = dict(range = [0, 1], tick0 = 0.1, dtick = 0.2, gridcolor = params['dark'],
             tickformat = '0%'),
         xaxis = dict(
-            range= year_range, tick0= min(year_range) + 10, dtick= 20, gridcolor= params['dark'])
+            range= year_range, tick0= min(year_range) + 10, dtick= 20, gridcolor= params['dark']),
+        margin = go.layout.Margin(t = m, l = m, b = m, r = m)
         )
     return fig
 

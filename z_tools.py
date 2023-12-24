@@ -13,9 +13,10 @@ params = dict(
     dark = '#663D14', light = '#FFF9F2',
     birth_decade_interest = range(1940, 2020, 10),
     bar_time_window  = range(1980, 2060),
-    proj_time_window = range(2020, 2060),
+    proj_time_window = range(2020, 2080),
     migrant_rate = [1.05, 1.10, 1.15, 1.20, 1.25, 1.30],
     cohort_pct = [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9]
+    margin = 2**3
     )
 
 params['cohort_colors'] = {

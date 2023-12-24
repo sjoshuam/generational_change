@@ -20,6 +20,7 @@ def set_up_figure(params = z_tools.params) -> go.Figure:
             params: a parameters object with various control settings
         Returns: An empty plotly Figure object
     """
+    m = params['margin']
     fig = go.Figure()
     fig = fig.update_layout(
         plot_bgcolor = params['light'], paper_bgcolor = params['light'],
@@ -32,7 +33,7 @@ def set_up_figure(params = z_tools.params) -> go.Figure:
             range = [0, 1], tickformat = '0%',
             tick0 = 0.1, dtick = 0.2, gridcolor = params['dark']
             ),
-        title = dict(text = '•' + ' ' * 10 + 'Projected Political Lean Over Time', xanchor = 'auto')
+        margin = go.layout.Margin(t = m, l = m, b = m, r = m)
     )
     return fig
 
@@ -43,7 +44,7 @@ def draw_voter_blocs(
         TODO:
     """
     x_coord = voter_forecast.loc[cohort_pct].index.values
-    lean_name = {'con': 'Conservative', 'lib': 'Liberal', 'either': 'Partisan (C+L)'}
+    lean_name = {'con': 'Conserv.', 'lib': 'Liberal', 'either': 'Con. + Lib.'}
     trace_list = dict()
     dash_type = 'solid'
     for iter_lean in lean_name.keys():
@@ -99,9 +100,7 @@ def draw_c1(voter_forecast):
         trace_list.update(draw_voter_blocs(voter_forecast = voter_forecast, cohort_pct = iter_pct))
     fig = fig.add_traces([trace_list[i] for i in trace_list.keys()])
     fig = fig.update_layout(
-        sliders = draw_slider_bar(trace_list),
-        title = dict(
-            text = 'Political Lean: Age Versus Cohort', xanchor= 'auto'),
+        sliders = draw_slider_bar(trace_list)
         )
     fig.write_html(file = 'out/c1_voter_forecast.html',full_html = True, include_plotlyjs = True)
     fig.write_html(file = 'out/c1_voter_forecast.div',full_html = False, include_plotlyjs = False)

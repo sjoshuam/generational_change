@@ -10,14 +10,15 @@
 
 body {
   font-family: Quicksand, Ariel;
-  font-size: 12pt;
+  font-size: 11pt;
   background-color: var(--light);
   color: var(--dark);
   width: 1500px;
-  height: 900px
+  height: 900px;
 }
 
 p {
+
   padding: 0px 10px 0px 10px;
   text-align: justify;
 }
@@ -31,12 +32,18 @@ li {
 div{
   float: left;
   text-align: center;
+  height:50%;
   width:32%;
-  height:55%;
 }
 
-div.text_panel{
-  height:30%;
+div.two_text_panels{
+  height:21%;
+  width:49%;
+}
+
+div.three_text_panels{
+  height:auto;
+  width:32%;
 }
 
 div.header{

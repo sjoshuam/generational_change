@@ -38,7 +38,8 @@ def write_html(div_list: list) -> str:
     header = '\n'.join([
         '<html>', '<header>',
         '\t<meta charset="utf-8" />',
-        '\t<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>', 
+        '\t<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>',
+        '\t<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Quicksand">',
         '\t<link rel="stylesheet" href="generational_change.css">',
         '</header>',
         '<body>'])
@@ -82,10 +83,8 @@ def execute_project():
     voter_forecast = c1_make_voter_forecast.make_c1(people_forecast = people_forecast)
     div_list.append(c1_draw_voter_forecast.draw_c1(voter_forecast = voter_forecast))
 
-    ###  a2, b2, c2 text
+    ###  panel explanation text
     div_list.append('\n'.join(open('in/a2_text.html', 'rt').readlines()))
-    div_list.append('\n'.join(open('in/b2_text.html', 'rt').readlines()))
-    div_list.append('\n'.join(open('in/c2_text.html', 'rt').readlines()))
 
     ## write html
     write_html(div_list)

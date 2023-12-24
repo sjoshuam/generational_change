@@ -22,6 +22,7 @@ def set_up_figure(params = z_tools.params) -> go.Figure:
             params: a parameters object with various control settings
         Returns: An empty plotly Figure object
     """
+    m = params['margin']
     fig = go.Figure()
     fig = fig.update_layout(
         plot_bgcolor = params['light'], paper_bgcolor = params['light'],
@@ -35,6 +36,7 @@ def set_up_figure(params = z_tools.params) -> go.Figure:
             tick0 = 0.1, dtick = 0.2, gridcolor = params['dark']
             ),
         barmode = 'stack',
+        margin = go.layout.Margin(t = m, l = m, b = m, r = m)
     )
     return fig
 
