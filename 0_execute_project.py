@@ -24,7 +24,6 @@ import shutil
 import a1_make_life_chances, a1_draw_life_chances
 import b1_make_people_forecast, b1_draw_people_forecast
 import c1_make_voter_forecast, c1_draw_voter_forecast
-import a2_do_project_text
 
 ##########==========##########==========##########==========##########==========##########==========
 ## COMPONENT FUNCTIONS
@@ -67,6 +66,9 @@ def execute_project():
     div_list = [
         '<a href="../index.html"> <div class="link_button">Return To Portfolio</div> </a>',
         '<div class="header"></div>', '<div class="header"></div>']
+    
+    ## project intro text
+    div_list.append('\n'.join(open('in/a0_text.html', 'rt').readlines()))
 
     ## a1 draw life expectancy figure
     life_chances = a1_make_life_chances.make_a1()
@@ -80,10 +82,10 @@ def execute_project():
     voter_forecast = c1_make_voter_forecast.make_c1(people_forecast = people_forecast)
     div_list.append(c1_draw_voter_forecast.draw_c1(voter_forecast = voter_forecast))
 
-    ##  a2/b2 draw project text
-    project_text = a2_do_project_text.make()
-    for iter_key in project_text.keys():
-        div_list.append(a2_do_project_text.draw((0, 0), project_text[iter_key]))
+    ###  a2, b2, c2 text
+    div_list.append('\n'.join(open('in/a2_text.html', 'rt').readlines()))
+    div_list.append('\n'.join(open('in/b2_text.html', 'rt').readlines()))
+    div_list.append('\n'.join(open('in/c2_text.html', 'rt').readlines()))
 
     ## write html
     write_html(div_list)
