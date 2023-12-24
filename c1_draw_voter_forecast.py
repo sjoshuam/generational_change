@@ -78,7 +78,7 @@ def draw_slider_bar(trace_list):
     sliders = [dict(
             active = cohort_pct_list.index('50%'),
             steps = steps,
-            currentvalue = {'prefix':'Cohort Influence Percentage: '}
+            currentvalue = {'prefix':'Political Lean Attributable To Cohort: '}
             )]
     
     return sliders

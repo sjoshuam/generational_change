@@ -2,7 +2,7 @@
     This is the top-level executable python file for this project.  All other code is called though
     it.  Project generates a file called generational_change.html, which is a six-panel web page
     that walks through a highly simplified model of generational change and its potential effect
-    on US presidential voting.  It calls eight module scripts:
+    on political leanings in the US population.  It calls eight module scripts:
 
     - a1_make_life_chances, a1_draw_life_chances: Life expectancy calculations and figures
     - b1_make_people_forecast, b1_draw_people_forecast: Population size forecasts by birth decade

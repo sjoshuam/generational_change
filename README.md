@@ -6,50 +6,39 @@ Rescoped: 2023-11-04
 
 #### Overview
 
-This project projects how the balance of economic and political power amoung
-different generations of Americans may shift over the coming decades, based
-on life expectancy.  The end product will be a 2 row x 3 column html data
-display.
-
-|       |Col. A |Col. B |Col. C |
-|:-     |:-     |:-     |:-     |
-|Row 1  |A1     |B1     |C1     |
-|Row 2  |A2     |B2     |C2     |
-
-Cells:
-
-- Figure Cells
-  - A1 - Life expectancy figure with birthyear slider
-  - B1 – Population projection figure with birth vs immigration rate slider
-  - C1 – Wealth projection figure with wealth rate slider
-  - C2 – Voting projection figure with age vs cohort slider
-- Text Cells
-- A2 – Project explainer text
-- B2 – Figure explainer texts
+Project generates a file called generational_change.html, which is a six-panel web page
+that walks through a highly simplified model of generational change and its potential effect
+on political leanings in the US population.
 
 #### TODO
 
 - [X] A1 Life Expectancy Figure with Birthyear Slider 
   - [X] a1_make_life_chances.py
   - [X] a1_draw_life_chances.py
-- [X] B1 Population Projection Figure with Migration Rate Slide
+- [X] B1 Population Projection Figure with Migration Rate Slider
   - [X] b1_make_people_forecast.py
   - [X] b1_draw_people_forecast.py
-- [ ] C1/C2 Weighted Projection Figures with Wealth/Politics Sliders
-  - [ ] c0_make_weighted_forecast.py
-  - [ ] c0_draw_weighted_forecast.py
-- [ ] A2/B2 Explainer Text
-  - [X] a2_do_project_text.py
-  - [ ] project_text.txt
-- [ ] Execute the Project
-  - [ ] 0_execute_project.py
+- [X] C1 Political Lean Projection Figure with Age Versus Cohort Slider
+  - [X] c1_make_voter_forecast.py
+  - [X] c1_draw_voter_forecast.py
+- [X] Explainer Text
+  - [X] Project Introduction
+  - [X] A1 Explanation Text
+  - [X] B1 Explanation Text
+  - [X] C1 Explanation Text
+- [X] Execute the Project
+  - [X] 0_execute_project.py
     - [X] Figure intitiator/writer code
-    - [ ] Module executors
-  - [ ] 1_tools.py
+    - [X] Module executors
+  - [X] 1_tools.py
     - [X] parallelization tools
     - [X] caching tools
-  - [ ] Resolve leftover TODO in project files
-  - [ ] Confirm all doc strings written
+  - [ ] Polish project
+    - [ ] Resolve leftover TODO in project files
+    - [ ] Confirm all doc strings written
+    - [ ] Proof read and polish text
+    - [ ] Get feedback
+    - [ ] Revised based on feedback
 
 #### Source
 
@@ -63,11 +52,7 @@ Cells:
 
 [US Census: Immigration x Age Rates](https://www2.census.gov/programs-surveys/popproj/technical-documentation/methodology/methodstatement17.pdf)
 
-###### C1 Wealth Projection
-
-[US FRB: Age x Net Worth Table (2023)](https://www.federalreserve.gov/publications/files/scf23.pdf)
-
-###### C2 Voting Projection
+###### C1 Voting Projection
 
 [ANES: Age x Party Table (2020)](https://sda.berkeley.edu/sdaweb/analysis/exec?formid=tbf&sdaprog=tables&dataset=nes2020full&sec508=false&row=V201507x&column=V201200&weightlist=V200010b&rowpct=on&design=complex&cflevel=95&weightedn=on&color=on&ch_type=stackedbar&ch_color=yes&ch_width=600&ch_height=400&ch_orientation=vertical&ch_effects=use2D&decpcts=1&decse=1&decdeft=3&decwn=1&decstats=2&csvformat=no&csvfilename=tables.csv)
 
