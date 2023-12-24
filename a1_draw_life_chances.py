@@ -6,6 +6,7 @@
 ## INITIALIZATION
 
 ## imports
+import os
 import plotly.graph_objects as go
 import a1_make_life_chances, z_tools
 
@@ -113,6 +114,7 @@ def draw_a1(life_chances):
     fig.write_html(file = 'out/a1_life_chances.html',full_html = True, include_plotlyjs = True)
     fig.write_html(file = 'out/a1_life_chances.div',full_html = False, include_plotlyjs = False)
     div = open('out/a1_life_chances.div', 'rt').read()
+    os.remove('out/a1_life_chances.div')
     return div
 
 

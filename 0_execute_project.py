@@ -61,6 +61,8 @@ def execute_project():
         Executes the code from all project modules in sequence, running the project from start
         to finish.
     """
+    ## pass css file to outputs
+    shutil.copyfile('in/generational_change.css', 'out/generational_change.css')
 
     ## generate container for div elements
     div_list = list()

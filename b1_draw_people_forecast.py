@@ -6,6 +6,7 @@
 ## HEADER
 
 ## import libraries and modules
+import os
 import b1_make_people_forecast, z_tools
 import plotly.graph_objects as go
 
@@ -130,7 +131,7 @@ def draw_b1(birth_decade, params = z_tools.params):
     fig.write_html(file = 'out/b1_people_forecast.html',full_html = True, include_plotlyjs = True)
     fig.write_html(file = 'out/b1_people_forecast.div',full_html = False, include_plotlyjs = False)
     div = open('out/b1_people_forecast.div', 'rt').read()
-
+    os.remove('out/b1_people_forecast.div')
     return div
 
 ##########==========##########==========##########==========##########==========##########==========

@@ -1,0 +1,70 @@
+/* ==== VARIABLES ================ */
+
+:root{
+  --light: #FFF9F2;
+  --dark: #663D14;
+
+}
+
+/* ==== BASIC ELEMENTS ================ */
+
+body {
+  font-family: Quicksand, Ariel;
+  font-size: 11pt;
+  background-color: var(--light);
+  color: var(--dark);
+  width: 1500px;
+  height: 900px;
+}
+
+p {
+
+  padding: 0px 10px 0px 10px;
+  text-align: justify;
+}
+
+li {
+  padding: 0px 10px 0px 0px;
+}
+
+/* ==== DIV ================ */
+
+div{
+  float: left;
+  text-align: center;
+  height:50%;
+  width:32%;
+}
+
+div.two_text_panels{
+  height:21%;
+  width:49%;
+}
+
+div.three_text_panels{
+  height:auto;
+  width:32%;
+}
+
+div.header{
+  height:3%;
+}
+
+div.link_button{
+  height: 2%;
+  /*color: #808040;*/
+  color: var(--dark);
+  text-align: center;
+  /*border: 1px solid #808040;*/
+  border: 1px solid var(--dark);
+  font-weight: bold;
+  border-radius: 5px;
+  background-color: var(--light);
+}
+
+div.txt{
+  color: var(--dark);
+  background-color: var(--light);
+  border: 2px solid var(--dark);
+  border-radius: 5px;
+}

@@ -4,7 +4,7 @@
 
 ##########==========##########==========##########==========##########==========##########==========
 ## HEADER
-
+import os
 import z_tools, c1_make_voter_forecast, b1_make_people_forecast
 import pandas as pd
 import plotly.graph_objects as go
@@ -105,6 +105,7 @@ def draw_c1(voter_forecast):
     fig.write_html(file = 'out/c1_voter_forecast.html',full_html = True, include_plotlyjs = True)
     fig.write_html(file = 'out/c1_voter_forecast.div',full_html = False, include_plotlyjs = False)
     div = open('out/c1_voter_forecast.div', 'rt').read()
+    os.remove('out/c1_voter_forecast.div')
     return div
 
 
