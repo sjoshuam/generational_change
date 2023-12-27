@@ -38,6 +38,8 @@ def write_html(div_list: list) -> str:
     header = '\n'.join([
         '<html>', '<header>',
         '\t<meta charset="utf-8" />',
+        '\t<title>Generational Change and US Politics</title>'
+        '\t<meta name = "robots" content = "noindex, nofollow, noimageindex">'
         '\t<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>',
         '\t<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Quicksand">',
         '\t<link rel="stylesheet" href="generational_change.css">',

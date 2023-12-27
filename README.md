@@ -37,6 +37,7 @@ on political leanings in the US population.
     - [ ] Resolve leftover TODO in project files
     - [ ] Confirm all doc strings written
     - [ ] Proof read and polish text
+    - [ ] Add project description to portfolio
     - [ ] Get feedback
     - [ ] Revised based on feedback
 
